@@ -60,4 +60,12 @@ genesis:
     - signers-voting
     - costs-4
 plan:
-  batches: []
+  batches:
+    - id: 0
+      transactions:
+        - emulated-contract-publish:
+            contract-name: allowlist-contract
+            emulated-sender: ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM
+            path: contracts/allowlist-contract.clar
+            clarity-version: 1
+      epoch: "2.05"
