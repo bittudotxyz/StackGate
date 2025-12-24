@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { openContractCall } from "@stacks/connect";
-import { STACKS_TESTNET } from "@stacks/network";
+import { STACKS_MAINNET } from "@stacks/network";
 import { principalCV } from "@stacks/transactions";
 
-const network = STACKS_TESTNET;
+const network = STACKS_MAINNET;
 
 const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS as string;
 const CONTRACT_NAME = import.meta.env.VITE_CONTRACT_NAME as string;

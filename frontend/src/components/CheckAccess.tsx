@@ -5,12 +5,12 @@ import {
   cvToValue,
   standardPrincipalCV,
 } from '@stacks/transactions';
-import { STACKS_TESTNET } from '@stacks/network';
+import { STACKS_MAINNET } from '@stacks/network';
 
-const contractAddress = 'STKS3DCP8441609AZ0REZ7VWTK5ECGXE89ZKJP5A';          // your contract address
-const contractName = 'allowlist-contract'; // your contract name
+const contractAddress = import.meta.env.VITE_CONTRACT_ADDRESS as string;          // your contract address
+const contractName = import.meta.env.VITE_CONTRACT_NAME as string;
 const functionName = 'is-allowed';       // your read-only function
-export const network = STACKS_TESTNET;
+export const network = STACKS_MAINNET;
 
 const CheckAccess: React.FC = () => {
   const [address, setAddress] = useState('');
