@@ -58,37 +58,24 @@ functionArgs: [
   };
 
   return (
-    <div
-      style={{
-        marginTop: 20,
-        padding: 16,
-        borderRadius: 12,
-        background: "#0b1220",
-        color: "#e5e7eb",
-      }}
-    >
-      <h3 style={{ marginBottom: 10 }}>🔐 Admin Panel</h3>
+    <div>
+      <p className="small" style={{ marginBottom: 16 }}>
+        As an admin, you can add or remove wallets from the allowlist.
+      </p>
 
       <input
-        placeholder="STX wallet address"
+        placeholder="Enter STX wallet address"
         value={wallet}
         onChange={(e) => setWallet(e.target.value)}
-        style={{
-          width: "100%",
-          padding: 10,
-          borderRadius: 8,
-          marginBottom: 12,
-          border: "1px solid #1f2937",
-          background: "#020617",
-          color: "#fff",
-        }}
+        style={{ marginBottom: 16 }}
       />
 
-      <div style={{ display: "flex", gap: 10 }}>
+      <div style={{ display: "flex", gap: 12 }}>
         <button
           className="btn primary"
           onClick={addWallet}
-          disabled={loading}
+          disabled={loading || !wallet}
+          style={{ flex: 1 }}
         >
           {loading ? <span className="spinner" /> : '➕ Add Wallet'}
         </button>
@@ -96,14 +83,15 @@ functionArgs: [
         <button
           className="btn ghost"
           onClick={removeWallet}
-          disabled={loading}
+          disabled={loading || !wallet}
+          style={{ flex: 1 }}
         >
-          {loading ? '...' : '➖ Remove Wallet'}
+          {loading ? <span className="spinner" /> : '➖ Remove Wallet'}
         </button>
       </div>
 
       {message && (
-        <div className={`message ${message.type === 'success' ? 'success' : 'error'}`}>
+        <div className={`message ${message.type === 'success' ? 'success' : 'error'}`} style={{ marginTop: 16 }}>
           {message.text}
         </div>
       )}

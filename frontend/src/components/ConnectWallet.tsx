@@ -2,7 +2,13 @@ import { useState } from "react";
 import { connect, disconnect } from "@stacks/connect";
 import type { GetAddressesResult } from "@stacks/connect/dist/types/methods";
 
-const WalletConnect = () => {
+/* ✅ ADD PROPS (needed by App.tsx) */
+interface ConnectWalletProps {
+  onConnect?: (address: string) => void;
+  onDisconnect?: () => void;
+}
+
+const WalletConnect = ({ onConnect, onDisconnect }: ConnectWalletProps) => {
   const [isConnected, setIsConnected] = useState(false);
   const [address, setAddress] = useState<string>("");
   const [bns, setBns] = useState<string>("");
@@ -11,13 +17,18 @@ const WalletConnect = () => {
   const connectWallet = async () => {
     try {
       setLoading(true);
-      const res: GetAddressesResult = await connect();
 
+      const res: GetAddressesResult = await connect();
       const stxAddress =
         res.addresses.find((a) => a.symbol === "STX")?.address || "";
 
+      if (!stxAddress) return;
+
       setAddress(stxAddress);
       setIsConnected(true);
+
+      // 🔔 notify App.tsx
+      onConnect?.(stxAddress);
 
       try {
         const bnsName = await getBnsName(stxAddress);
@@ -35,6 +46,9 @@ const WalletConnect = () => {
     setIsConnected(false);
     setAddress("");
     setBns("");
+
+    // 🔔 notify App.tsx
+    onDisconnect?.();
   };
 
   const copyAddress = async () => {
@@ -53,30 +67,51 @@ const WalletConnect = () => {
   };
 
   return (
-    <div className="row" style={{ justifyContent: 'space-between' }}>
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        {!isConnected ? (
-          <button className="btn primary" onClick={connectWallet} disabled={loading}>
-            {loading ? <span className="spinner" /> : 'Connect Wallet'}
-          </button>
-        ) : (
-          <>
-            <div className="status-badge status-connected small">{bns || shortenAddress(address)}</div>
-            <button className="copy-btn small" onClick={copyAddress} title="Copy address">Copy</button>
-            <button className="btn ghost" onClick={disconnectWallet}>Disconnect</button>
-          </>
-        )}
-      </div>
+    <div>
+      <p className="small" style={{ marginBottom: 16 }}>
+        Connect using a Stacks browser extension like Leather or Xverse.
+      </p>
+      <div className="row" style={{ justifyContent: "space-between", flexWrap: 'wrap' }}>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: 'wrap' }}>
+          {!isConnected ? (
+            <button
+              className="btn primary"
+              onClick={connectWallet}
+              disabled={loading}
+            >
+              {loading ? <span className="spinner" /> : "Connect Extension"}
+            </button>
+          ) : (
+            <>
+              <div className="status-badge status-connected small">
+                {bns || shortenAddress(address)}
+              </div>
+              <button
+                className="copy-btn"
+                onClick={copyAddress}
+                title="Copy address"
+              >
+                📋 Copy
+              </button>
+              <button className="btn ghost" onClick={disconnectWallet}>
+                Disconnect
+              </button>
+            </>
+          )}
+        </div>
 
-      <div className="small">{isConnected ? <span className="small">Connected</span> : <span className="small">Not connected</span>}</div>
+        <div className="small">
+          Status: {isConnected ? "Connected" : "Not connected"}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default WalletConnect;
 
-// Helper
+/* ---------- Helper ---------- */
 function shortenAddress(addr: string) {
-  if (!addr) return '';
+  if (!addr) return "";
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 }

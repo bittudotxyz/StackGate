@@ -49,11 +49,15 @@ const CheckAccess: React.FC = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <p className="small" style={{ marginBottom: 16 }}>
+        Enter a Stacks address to check if it's on the allowlist.
+      </p>
+      <div style={{ display: 'flex', gap: 12, alignItems: 'stretch' }}>
         <input
-          placeholder="Enter STX address"
+          placeholder="Enter STX address (e.g., SP123...)"
           value={address}
           onChange={e => setAddress(e.target.value)}
+          style={{ flex: 1 }}
         />
         <button className="btn primary" onClick={handleCheck} disabled={loading || !address}>
           {loading ? <span className="spinner" /> : 'Check Access'}
@@ -63,11 +67,15 @@ const CheckAccess: React.FC = () => {
       {error && <div className="message error">Error: {error}</div>}
 
       {result !== null && (
-        <div style={{ marginTop: 10 }}>
-          <span className={String(result) === 'true' ? 'result-true' : 'result-false'}>
-            {String(result)}
-          </span>
-          <div className="small" style={{ marginTop: 6 }}>Read-only call returned the boolean allowlist result.</div>
+        <div className="message" style={{ marginTop: 16, textAlign: 'center' }}>
+          <div style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: 8 }}>
+            Access Status: <span className={String(result) === 'true' ? 'result-true' : 'result-false'}>
+              {String(result) === 'true' ? 'Allowed' : 'Not Allowed'}
+            </span>
+          </div>
+          <div className="small">
+            This address {String(result) === 'true' ? 'is' : 'is not'} on the allowlist.
+          </div>
         </div>
       )}
     </div>
