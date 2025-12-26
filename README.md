@@ -75,7 +75,7 @@ The UI acts as the **control layer**, while the contract remains the **source of
 
 ## Access Flow
 
-### 👤 User
+### User
 1. Connects wallet  
 2. Checks access using on-chain **read-only call**  
 3. Gains or loses access based on allowlist state  
@@ -87,7 +87,7 @@ The UI acts as the **control layer**, while the contract remains the **source of
 
 ---
 
-## 🔗 On Chain Interactions
+## On Chain Interactions
 
 StackGate performs **real blockchain transactions**, including:
 
