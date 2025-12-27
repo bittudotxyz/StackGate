@@ -11,35 +11,35 @@ export const ActionButtonList = ({
   session,
   setSession
 }: ActionButtonListProps) => {
-  // Sign Stacks message
-  const handleSignStacksMsg = async () => {
-    if (!universalConnector) return
+//   // Sign Stacks message
+//   const handleSignStacksMsg = async () => {
+//     if (!universalConnector) return
 
-    const message = 'Hello Reown AppKit!'
-    try {
-      const account =
-        session?.namespaces?.stacks?.accounts?.[0]?.split(':')[2]
+//     const message = 'Hello Reown AppKit!'
+//     try {
+//       const account =
+//         session?.namespaces?.stacks?.accounts?.[0]?.split(':')[2]
 
-      if (!account) {
-        throw new Error('No Stacks account found')
-      }
+//       if (!account) {
+//         throw new Error('No Stacks account found')
+//       }
 
-      const result = await universalConnector.request(
-        {
-          method: 'stx_signMessage',
-          params: {
-            message,
-            address: account
-          }
-        },
-        'stacks:1'
-      )
+//       const result = await universalConnector.request(
+//         {
+//           method: 'stx_signMessage',
+//           params: {
+//             message,
+//             address: account
+//           }
+//         },
+//         'stacks:1'
+//       )
 
-      console.log('>> Stacks Sign Message result', result)
-    } catch (error) {
-      console.error('>> Stacks Sign Message error', error)
-    }
-  }
+//       console.log('>> Stacks Sign Message result', result)
+//     } catch (error) {
+//       console.error('>> Stacks Sign Message error', error)
+//     }
+//   }
 
   const handleDisconnect = async () => {
     if (!universalConnector) return
@@ -70,9 +70,6 @@ export const ActionButtonList = ({
             </div>
           </div>
           <div style={{ display: 'flex', gap: 12 }}>
-            <button className="btn primary" onClick={handleSignStacksMsg} style={{ flex: 1 }}>
-              Sign Test Message
-            </button>
             <button className="btn ghost" onClick={handleDisconnect} style={{ flex: 1 }}>
               Disconnect
             </button>

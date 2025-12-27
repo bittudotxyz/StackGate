@@ -65,22 +65,29 @@ export default function App() {
   return (
     <div className="app-root">
       <header className="app-header">
-        <h1>StackGate</h1>
-        <p className="subtitle">
-          Manage allowlist access for your Stacks contract
-        </p>
+        <div>
+          <h1>StackGate</h1>
+          <p className="subtitle">
+            Manage allowlist access for your Stacks contract
+          </p>
+        </div>
 
         {address && (
-          <p className="wallet-info">
-            Connected: {address} {isAdmin && '🛡️ Admin'}
-          </p>
+          <div className="wallet-info">
+            <div style={{ fontWeight: 600, marginBottom: 4 }}>
+              Connected Wallet
+            </div>
+            <div className="small">
+              {address} {isAdmin && '🛡️ Admin'}
+            </div>
+          </div>
         )}
       </header>
 
       <main className="app-content">
         {/* EXTENSION */}
         <section className="card">
-          <h3>Connect with Browser Extension</h3>
+          <h3>🔌 Browser Extension</h3>
           <ConnectWallet
             onConnect={onExtensionConnect}
             onDisconnect={onDisconnect}
@@ -89,9 +96,7 @@ export default function App() {
 
         {/* QR / APPKIT */}
         <section className="card">
-          <h3>Connect with Mobile Wallet (QR)</h3>
-
-          {/* ✅ THIS NOW WORKS */}
+          <h3>📱 Mobile Wallet (QR)</h3>
 
           {universalConnector && (
             <ActionButtonList
@@ -104,12 +109,14 @@ export default function App() {
 
         {address && (
           <section className="card">
+            <h3>🔍 Check Access</h3>
             <CheckAccess />
           </section>
         )}
 
         {isAdmin && (
           <section className="card admin">
+            <h3>🔐 Admin Panel</h3>
             <AdminPanel />
           </section>
         )}
