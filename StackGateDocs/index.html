@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>StackGate – Access Control on Stacks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --primary: #ff7a18;
+      --secondary: #ffffff;
+      --bg: #0f0f0f;
+      --card: #1a1a1a;
+      --text: #eaeaea;
+      --muted: #b3b3b3;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 40px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), #ff9a3c);
+      color: #000;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 42px;
+      font-weight: 800;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 1px solid #2a2a2a;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    code {
+      background: #000;
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: var(--primary);
+      font-size: 14px;
+    }
+
+    .flow {
+      background: #000;
+      padding: 16px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      border-top: 1px solid #2a2a2a;
+    }
+
+    button {
+      background: var(--primary);
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>StackGate</h1>
+  <p>Decentralized Access Control Infrastructure on Stacks</p>
+</header>
+
+<section>
+
+  <div class="card">
+    <h2>What is StackGate?</h2>
+    <p>
+      StackGate is a decentralized access control system built on the
+      <strong>Stacks blockchain</strong>. It allows projects to manage
+      <strong>who can access features, launches, or private resources</strong>
+      using on-chain smart contracts instead of centralized databases.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Why StackGate?</h2>
+    <ul>
+      <li>On-chain access control (no Web2 trust)</li>
+      <li>Transparent and auditable permissions</li>
+      <li>Admin-controlled approval flow</li>
+      <li>Easy frontend integration</li>
+      <li>Real on-chain transactions (not fake activity)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Core Architecture</h2>
+    <p>StackGate is modular and built using multiple smart contracts:</p>
+
+    <ul>
+      <li><strong>Allowlist Contract</strong> – Grants or revokes access</li>
+      <li><strong>Access Request Contract</strong> – Records user requests on-chain</li>
+      <li><strong>Frontend</strong> – Connects wallets and enforces gating logic</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Allowlist Contract</h2>
+    <p>
+      The allowlist contract is the core gatekeeper. Only the admin can add or
+      remove wallets.
+    </p>
+
+    <ul>
+      <li><code>add-wallet</code> – Admin grants access</li>
+      <li><code>remove-wallet</code> – Admin revokes access</li>
+      <li><code>is-allowed</code> – Anyone can check access</li>
+    </ul>
+
+    <p>
+      This contract is <strong>unchanged</strong> and acts as the final authority.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Access Request Contract</h2>
+    <p>
+      This contract allows users to request access directly on-chain.
+      Each request is a real blockchain transaction.
+    </p>
+
+    <ul>
+      <li>Users can request access multiple times</li>
+      <li>Each request updates on-chain stats</li>
+      <li>No automatic approval (admin decides)</li>
+    </ul>
+
+    <p>Stored data per wallet:</p>
+    <ul>
+      <li>Request count</li>
+      <li>Last request block height</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Access Flow (How It Works)</h2>
+
+    <div class="flow">
+User Wallet
+   |
+   | request-access()  (transaction)
+   v
+Access Request Contract
+   |
+   | admin reviews requests (read-only)
+   v
+Admin Decision
+   |
+   | add-wallet() (transaction)
+   v
+Allowlist Contract
+   |
+   | is-allowed() check
+   v
+Access Granted
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Frontend Integration</h2>
+    <p>
+      The frontend connects a Stacks wallet and performs:
+    </p>
+
+    <ul>
+      <li>Wallet connection (Hiro / Xverse)</li>
+      <li>Read-only access checks</li>
+      <li>Request access transactions</li>
+      <li>Admin-only allowlist actions</li>
+    </ul>
+
+    <p>
+      Access is granted only if the wallet is allowlisted.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Why This Design Is Correct</h2>
+    <ul>
+      <li>No automatic approvals (security first)</li>
+      <li>Clear separation of concerns</li>
+      <li>Scalable and modular</li>
+      <li>Reviewer-friendly architecture</li>
+      <li>Legitimate on-chain activity</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Use Cases</h2>
+    <ul>
+      <li>Token launch allowlists</li>
+      <li>Early access programs</li>
+      <li>DAO membership gating</li>
+      <li>Private beta features</li>
+      <li>Community onboarding</li>
+    </ul>
+  </div>
+
+</section>
+
+<footer>
+  <p>Built with ❤️ on Stacks • StackGate</p>
+</footer>
+
+<script>
+  console.log("StackGate documentation loaded");
+</script>
+
+</body>
+</html>
