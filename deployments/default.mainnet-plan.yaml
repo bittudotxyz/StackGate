@@ -9,10 +9,10 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: allowlist-contractv1
+            contract-name: access-request
             expected-sender: SPKS3DCP8441609AZ0REZ7VWTK5ECGXE8ADVXBM8
             cost: 27360
-            path: contracts/allowlist-contractv1.clar
+            path: contracts/access-request.clar
             anchor-block-only: true
             clarity-version: 4
       epoch: "2.05"
