@@ -169,6 +169,14 @@ StackGate was built as part of the **Stacks Builder Challenge**, demonstrating:
 
 ---
 
+## References
+
+- WalletConnect Docs: [https://docs.walletconnect.network](https://docs.walletconnect.network)  
+- Reown WalletKit Docs: [https://docs.reown.com](https://docs.reown.com)  
+- Stacks Documentation: [https://docs.stacks.co](https://docs.stacks.co)
+
+---
+
 ## License
 
 **MIT License**
