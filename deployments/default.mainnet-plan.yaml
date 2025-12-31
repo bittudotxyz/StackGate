@@ -2,17 +2,17 @@
 id: 0
 name: Mainnet deployment
 network: mainnet
-stacks-node: "https://api.mainnet.hiro.so"
-bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.mainnet.stacks.co:8332"
+stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
 plan:
   batches:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: access-request
+            contract-name: access-usagev2
             expected-sender: SPKS3DCP8441609AZ0REZ7VWTK5ECGXE8ADVXBM8
-            cost: 27360
-            path: contracts/access-request.clar
+            cost: 18040
+            path: contracts/access-usagev2.clar
             anchor-block-only: true
             clarity-version: 4
       epoch: "2.05"

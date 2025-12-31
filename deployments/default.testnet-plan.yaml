@@ -9,10 +9,10 @@ plan:
     - id: 0
       transactions:
         - contract-publish:
-            contract-name: access-request
+            contract-name: access-usage
             expected-sender: STKS3DCP8441609AZ0REZ7VWTK5ECGXE89ZKJP5A
-            cost: 27360
-            path: contracts/access-request.clar
+            cost: 21160
+            path: contracts/access-usage.clar
             anchor-block-only: true
             clarity-version: 4
       epoch: "2.05"

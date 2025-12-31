@@ -6,8 +6,8 @@ authors = []
 telemetry = true
 cache_dir = "./.cache"
 
-[contracts.access-request]
-path = "contracts/access-request.clar"
+[contracts.access-usagev1]
+path = "contracts/access-usagev1.clar"
 
 [repl.analysis]
 passes = ["check_checker"]
